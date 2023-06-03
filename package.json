@@ -17,17 +17,21 @@
     "clean-build": "rm -rf out*"
   },
   "dependencies": {
-    "@aura-ui/react": "0.0.5-alpha.2",
+    "@aura-ui/react": "0.0.5-alpha.3",
     "@next/font": "13.1.6",
-    "arconnect": "0.4.2",
-    "arweave": "1.12.4",
-    "arweave-account": "1.3.4",
+    "@tanstack/react-query": "4.28.0",
+    "arweave": "1.13.7",
     "arweave-graphql": "0.0.5",
-    "arweave-wallet-ui-test": "0.0.9",
+    "arweave-wallet-ui-test": "0.0.12",
+    "date-fns": "2.29.3",
+    "formik": "2.2.9",
+    "motion": "10.15.5",
+    "motion-hooks": "0.1.1",
     "next": "13.1.6",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "4.9.0",
     "warp-contracts": "1.2.52"
   },
   "devDependencies": {
