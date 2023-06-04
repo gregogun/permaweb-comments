@@ -8,14 +8,9 @@ import {
   Typography,
 } from "@aura-ui/react";
 import { abbreviateAddress, timeAgo } from "../../utils";
-import {
-  BsChat,
-  BsChatDotsFill,
-  BsHeart,
-  BsPatchCheckFill,
-} from "react-icons/bs";
+import { BsPatchCheckFill } from "react-icons/bs";
 import { Account } from "../../types";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { ReplyDialog } from "./ReplyDialog";
 
 interface ReplyItemProps {
@@ -124,36 +119,13 @@ export const ReplyItem = forwardRef<HTMLDivElement, ReplyItemProps>(
                 },
               }}
             >
-              {/* <BsChat /> 1 */}
               Reply
             </Button>
-            {/* <Button
-              size="1"
-              css={{
-                p: 0,
-                lineHeight: 1,
-                height: "max-content",
-                backgroundColor: "transparent",
-                fontSize: "$1",
-                gap: "$2",
-
-                "&:hover": {
-                  backgroundColor: "transparent",
-                  color: "$slate12",
-                },
-
-                "&:active": {
-                  backgroundColor: "transparent",
-                  color: "$slate12",
-                },
-              }}
-            >
-              <BsHeart /> 0
-            </Button> */}
           </Flex>
         </Flex>
 
         <ReplyDialog
+          commentor={account?.uniqueHandle}
           commentTx={commentTx}
           open={openReplyDialog}
           onClose={handleCancelReplyDialog}

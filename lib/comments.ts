@@ -6,19 +6,16 @@ import { getAccount } from "./account";
 
 export const writeComment = async ({ comment, sourceTx }: Comment) => {
   try {
-    const savedTx = await arweave.createTransaction({
+    const tx = await arweave.createTransaction({
       data: comment,
     });
-    savedTx.addTag("Content-Type", "text/plain");
-    savedTx.addTag("Data-Protocol", "Comment");
-    savedTx.addTag("Type", "comment");
-    savedTx.addTag("Variant", "0.0.1-alpha");
-    savedTx.addTag("Published", Date.now().toString());
-    savedTx.addTag("App-Name", "Permaweb-Comments");
-    savedTx.addTag("Data-Source", sourceTx);
+    tx.addTag("Content-Type", "text/plain");
+    tx.addTag("Data-Protocol", "comment");
+    tx.addTag("Published", Date.now().toString());
+    tx.addTag("Data-Source", sourceTx);
 
-    const savedTxResult = await window.arweaveWallet.dispatch(savedTx);
-    return savedTxResult;
+    const txResult = await window.arweaveWallet.dispatch(tx);
+    return txResult;
   } catch (error) {
     throw new Error(error as any);
   }
@@ -35,18 +32,11 @@ export const readComment = async ({
   cursor,
   limit,
 }: CommentQueryParams) => {
-  // if (!sourceTx) {
-  //   throw new Error("No source transaction ID found");
-  // }
-
   const query: GetTransactionsQueryVariables = {
     first: limit || 3,
     tags: [
       { name: "Content-Type", values: ["text/plain"] },
-      { name: "Variant", values: ["0.0.1-alpha"] },
-      { name: "Data-Protocol", values: ["Comment"] },
-      { name: "App-Name", values: ["Permaweb-Comments"] },
-      { name: "Type", values: ["comment"] },
+      { name: "Data-Protocol", values: ["comment"] },
       { name: "Data-Source", values: [sourceTx] },
     ],
   };
@@ -56,13 +46,13 @@ export const readComment = async ({
   }
 
   try {
-    const metaRes = await arweaveGql(
+    const res = await arweaveGql(
       `${config.gatewayUrl}/graphql`
     ).getTransactions({
       ...query,
     });
 
-    const metadata = metaRes.transactions.edges
+    const metadata = res.transactions.edges
       .filter((edge) => Number(edge.node.data.size) < 320)
       .filter(
         (edge) => edge.node.tags.find((x) => x.name === "Published")?.value
@@ -91,7 +81,7 @@ export const readComment = async ({
       });
 
     const data = await Promise.all(metadata);
-    const hasNextPage = metaRes.transactions.pageInfo.hasNextPage;
+    const hasNextPage = res.transactions.pageInfo.hasNextPage;
 
     return {
       data,

@@ -23,7 +23,6 @@ import { writeComment } from "../../lib/comments";
 import { useConnect } from "arweave-wallet-ui-test";
 import { RxCross2 } from "react-icons/rx";
 import { config } from "../../config";
-import { writeReply } from "../../lib/replies";
 
 interface ReplyDialogProps {
   open: boolean;
@@ -92,7 +91,7 @@ export const ReplyDialog = ({
   });
 
   const commentMutation = useMutation({
-    mutationFn: writeReply,
+    mutationFn: writeComment,
     onSuccess: (data) => {
       if (submitting) {
         setSubmitting(false);
