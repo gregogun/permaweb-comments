@@ -54,11 +54,13 @@ export const ReplyItem = forwardRef<HTMLDivElement, ReplyItemProps>(
         gap="3"
       >
         <Flex direction="column" gap="2" align="center">
-          <Avatar size="4">
+          <Avatar
+            css={{
+              size: 48,
+            }}
+            size="5"
+          >
             <AvatarImage
-              css={{
-                border: "1px solid $colors$slate1",
-              }}
               src={
                 account?.avatar
                   ? account?.avatar
@@ -68,38 +70,38 @@ export const ReplyItem = forwardRef<HTMLDivElement, ReplyItemProps>(
             <AvatarFallback>{name?.slice(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
         </Flex>
-        <Flex css={{ width: "100%" }} direction="column">
-          <Flex align="center" justify="between">
-            <Flex gap="1">
-              <Typography contrast="hiContrast" size="2" weight="6">
-                {name}
-              </Typography>
-              {account?.vouched && (
-                <Box
-                  css={{
-                    "& svg": {
-                      fill: "$indigo11",
-                      size: "$4",
-                      verticalAlign: "middle",
-                    },
-                  }}
-                  as="span"
-                >
-                  <BsPatchCheckFill />
-                </Box>
-              )}
-              {account?.uniqueHandle && (
-                <Typography size="2" css={{ color: "$slate11" }}>
-                  {account.uniqueHandle}
-                </Typography>
-              )}
-            </Flex>
-            <Typography size="1" css={{ color: "$slate11" }}>
-              {timeAgo(Number(published))}
+        <Flex css={{ width: "100%" }} direction="column" gap="1">
+          <Flex
+            css={{
+              "& p": { lineHeight: 1 },
+            }}
+            align="center"
+            gap="1"
+          >
+            <Typography contrast="hiContrast" weight="6">
+              {name}
             </Typography>
+            {account?.vouched && (
+              <Box
+                css={{
+                  "& svg": {
+                    fill: "$indigo11",
+                    size: "$4",
+                    verticalAlign: "middle",
+                  },
+                }}
+                as="span"
+              >
+                <BsPatchCheckFill />
+              </Box>
+            )}
+            {account?.uniqueHandle && (
+              <Typography>{account.uniqueHandle}</Typography>
+            )}
+            <Typography size="2">• {timeAgo(Number(published))}</Typography>
           </Flex>
           {comment && <Typography contrast="hiContrast">{comment}</Typography>}
-          <Flex align="center" css={{ mt: "$2" }} gap="4">
+          <Flex align="center" gap="4">
             <Button
               onClick={handleOpenReplyDialog}
               size="1"
@@ -122,9 +124,10 @@ export const ReplyItem = forwardRef<HTMLDivElement, ReplyItemProps>(
                 },
               }}
             >
-              <BsChat /> 1
+              {/* <BsChat /> 1 */}
+              Reply
             </Button>
-            <Button
+            {/* <Button
               size="1"
               css={{
                 p: 0,
@@ -146,7 +149,7 @@ export const ReplyItem = forwardRef<HTMLDivElement, ReplyItemProps>(
               }}
             >
               <BsHeart /> 0
-            </Button>
+            </Button> */}
           </Flex>
         </Flex>
 

@@ -114,7 +114,12 @@ export const CommentItem = forwardRef<HTMLDivElement, CommentItemProps>(
         gap="3"
       >
         <Flex direction="column" gap="2" align="center">
-          <Avatar size="4">
+          <Avatar
+            css={{
+              size: 48,
+            }}
+            size="5"
+          >
             <AvatarImage
               src={
                 account?.avatar
@@ -127,7 +132,9 @@ export const CommentItem = forwardRef<HTMLDivElement, CommentItemProps>(
           {hasReplies && !isLastItem && (
             <Box
               css={{
-                backgroundColor: "$slate6",
+                background:
+                  "linear-gradient(to bottom, #313538 0%, rgba(49, 53, 56, 0) 100%)",
+                // backgroundColor: "$slate5",
                 flex: 1,
                 width: 3,
                 height: "100%",
@@ -138,7 +145,6 @@ export const CommentItem = forwardRef<HTMLDivElement, CommentItemProps>(
         <Flex css={{ width: "100%" }} direction="column" gap="1">
           <Flex
             css={{
-              height: "max-content",
               "& p": { lineHeight: 1 },
             }}
             align="center"
@@ -164,13 +170,9 @@ export const CommentItem = forwardRef<HTMLDivElement, CommentItemProps>(
               </Flex>
             )}
             {account?.uniqueHandle && (
-              <Typography css={{ color: "$slate11" }}>
-                {account.uniqueHandle}
-              </Typography>
+              <Typography>{account.uniqueHandle}</Typography>
             )}
-            <Typography size="2" css={{ color: "$slate11" }}>
-              • {timeAgo(Number(published))}
-            </Typography>
+            <Typography size="2">• {timeAgo(Number(published))}</Typography>
           </Flex>
           {comment && <Typography contrast="hiContrast">{comment}</Typography>}
           <Flex align="center" gap="4">
@@ -221,7 +223,7 @@ export const CommentItem = forwardRef<HTMLDivElement, CommentItemProps>(
               <BsHeart /> 0
             </Button> */}
           </Flex>
-          <Flex css={{ mt: "$3" }} direction="column">
+          <Flex css={{ my: "$3" }} direction="column">
             {repliesData &&
               repliesData.pages.map((infinitePage, i) => (
                 <React.Fragment key={i}>
