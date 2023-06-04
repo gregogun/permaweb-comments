@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@aura-ui/react";
 import { FormikErrors, useFormik } from "formik";
-import { readComment, writeComment } from "../../lib/comments";
+import { getComments, createComment } from "../../lib/comments";
 import { Comment } from "../../types";
 import { CommentItem } from "./CommentItem";
 import { Loader } from "../../ui/Loader";
@@ -55,7 +55,7 @@ export const Comments = () => {
     queryKey: [`comments`],
     cacheTime: 1 * 60 * 1000,
     queryFn: ({ pageParam }) =>
-      readComment({ sourceTx: config.testSourceTx, cursor: pageParam }),
+      getComments({ sourceTx: config.testSourceTx, cursor: pageParam }),
     getNextPageParam: (lastPage) => {
       // check if we have more pages.
       if (!lastPage.hasNextPage) {
@@ -107,7 +107,7 @@ export const Comments = () => {
   });
 
   const commentMutation = useMutation({
-    mutationFn: writeComment,
+    mutationFn: createComment,
     onSuccess: (data) => {
       if (submitting) {
         setSubmitting(false);

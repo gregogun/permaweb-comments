@@ -4,7 +4,7 @@ import { config } from "../config";
 import { Comment } from "../types";
 import { getAccount } from "./account";
 
-export const writeComment = async ({ comment, sourceTx }: Comment) => {
+export const createComment = async ({ comment, sourceTx }: Comment) => {
   try {
     const tx = await arweave.createTransaction({
       data: comment,
@@ -27,7 +27,7 @@ interface CommentQueryParams {
   limit?: number;
 }
 
-export const readComment = async ({
+export const getComments = async ({
   sourceTx,
   cursor,
   limit,

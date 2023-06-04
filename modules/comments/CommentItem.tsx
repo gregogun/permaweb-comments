@@ -16,7 +16,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { ReplyItem } from "./ReplyItem";
 import { useMotionAnimate } from "motion-hooks";
 import { stagger } from "motion";
-import { readComment } from "../../lib/comments";
+import { getComments } from "../../lib/comments";
 
 interface CommentItemProps {
   owner: string | undefined;
@@ -59,7 +59,7 @@ export const CommentItem = forwardRef<HTMLDivElement, CommentItemProps>(
           throw new Error("No txid found");
         }
 
-        return readComment({ sourceTx: txid, cursor: pageParam });
+        return getComments({ sourceTx: txid, cursor: pageParam });
       },
       getNextPageParam: (lastPage) => {
         // check if we have more pages.

@@ -19,7 +19,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { abbreviateAddress } from "../../utils";
 import { Comment } from "../../types";
-import { writeComment } from "../../lib/comments";
+import { createComment } from "../../lib/comments";
 import { useConnect } from "arweave-wallet-ui-test";
 import { RxCross2 } from "react-icons/rx";
 import { config } from "../../config";
@@ -91,7 +91,7 @@ export const ReplyDialog = ({
   });
 
   const commentMutation = useMutation({
-    mutationFn: writeComment,
+    mutationFn: createComment,
     onSuccess: (data) => {
       if (submitting) {
         setSubmitting(false);
