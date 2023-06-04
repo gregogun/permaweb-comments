@@ -29,9 +29,15 @@ interface ReplyDialogProps {
   open: boolean;
   onClose: () => void;
   commentTx: string | undefined;
+  commentor: string | undefined;
 }
 
-export const ReplyDialog = ({ open, onClose, commentTx }: ReplyDialogProps) => {
+export const ReplyDialog = ({
+  open,
+  onClose,
+  commentTx,
+  commentor,
+}: ReplyDialogProps) => {
   const [submitting, setSubmitting] = useState(false);
   const { profile, walletAddress } = useConnect();
   const queryClient = useQueryClient();
@@ -131,9 +137,9 @@ export const ReplyDialog = ({ open, onClose, commentTx }: ReplyDialogProps) => {
         <DialogContent
           css={{
             p: 2,
+            left: "47%",
           }}
         >
-          <Typography></Typography>
           <Flex
             as="form"
             onSubmit={formik.handleSubmit}
@@ -197,7 +203,7 @@ export const ReplyDialog = ({ open, onClose, commentTx }: ReplyDialogProps) => {
                 minLength={3}
                 maxLength={300}
                 variant="outline"
-                placeholder={`Reply to`}
+                placeholder={`Replying to ${commentor}`}
               />
             </Flex>
             <Button

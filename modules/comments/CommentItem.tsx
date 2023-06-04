@@ -245,6 +245,7 @@ export const CommentItem = forwardRef<HTMLDivElement, CommentItemProps>(
         </Flex>
 
         <ReplyDialog
+          commentor={account?.uniqueHandle}
           commentTx={txid}
           open={openReplyDialog}
           onClose={handleCancelReplyDialog}
